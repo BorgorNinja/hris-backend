@@ -27,10 +27,10 @@ export class Announcement {
 
   /** Every announcement is posted by exactly one user (many-to-one). */
   @ManyToOne(() => User, (user) => user.announcements, { nullable: false })
-  @JoinColumn({ name: 'posted_by' })
+  @JoinColumn({ name: 'posted_by_id' })
   posted_by: User;
 
-  @Column({ name: 'posted_by' })
+  @Column({ name: 'posted_by_id' })
   posted_by_id: number;
 
   @CreateDateColumn({ name: 'created_at' })

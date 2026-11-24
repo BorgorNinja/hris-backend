@@ -73,10 +73,10 @@ export class Incident {
 
   /** Every incident is reported by exactly one user (many-to-one). */
   @ManyToOne(() => User, (user) => user.incidents, { nullable: false })
-  @JoinColumn({ name: 'reported_by' })
+  @JoinColumn({ name: 'reported_by_id' })
   reported_by: User;
 
-  @Column({ name: 'reported_by' })
+  @Column({ name: 'reported_by_id' })
   reported_by_id: number;
 
   @CreateDateColumn({ name: 'created_at' })

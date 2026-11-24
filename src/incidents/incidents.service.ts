@@ -20,7 +20,7 @@ export class IncidentsService {
   async create(dto: CreateIncidentDto, reporter: User): Promise<Incident> {
     const incident = this.incidentsRepository.create({
       ...dto,
-      reported_by_id: reporter.id,
+      reported_by: reporter,
     });
 
     const saved = await this.incidentsRepository.save(incident);

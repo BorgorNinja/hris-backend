@@ -19,7 +19,7 @@ export class AnnouncementsService {
   async create(dto: CreateAnnouncementDto, author: User): Promise<Announcement> {
     const announcement = this.announcementsRepository.create({
       ...dto,
-      posted_by_id: author.id,
+      posted_by: author,
     });
 
     const saved = await this.announcementsRepository.save(announcement);
