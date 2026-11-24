@@ -1,0 +1,17 @@
+# compiled output
+dist
+node_modules
+coverage
+
+# secrets
+.env
+
+# logs
+npm-debug.log*
+yarn-error.log*
+
+# OS / editor
+.DS_Store
+.idea
+.vscode
+*.swp
