@@ -6,11 +6,11 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Incident } from '../../incidents/entities/incident.entity';
+import { Employee } from '../../employees/entities/employee.entity';
 
-/** A barangay zone/area of the community covered by SenTri. */
-@Entity('zones')
-export class Zone {
+/** A company department that groups employees (HRIS core entity). */
+@Entity('departments')
+export class Department {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -20,8 +20,8 @@ export class Zone {
   @Column({ type: 'text', nullable: true })
   description: string;
 
-  @OneToMany(() => Incident, (incident) => incident.zone)
-  incidents: Incident[];
+  @OneToMany(() => Employee, (employee) => employee.department)
+  employees: Employee[];
 
   @CreateDateColumn({ name: 'created_at' })
   created_at: Date;
