@@ -1,0 +1,175 @@
+{
+	"info": {
+		"name": "HRIS Backend — ITEC 116 Final Project",
+		"description": "Postman collection for the Human Resource Information System backend (NestJS + TypeORM + MySQL + JWT). Set {{base_url}} and {{token}} collection variables before use.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{ "key": "base_url", "value": "http://localhost:3000/api" },
+		{ "key": "token", "value": "paste-jwt-here" }
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }]
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"auth": { "type": "noauth" },
+						"method": "POST",
+						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"body": { "mode": "raw", "raw": "{\n  \"full_name\": \"New Employee\",\n  \"email\": \"new@company.test\",\n  \"password\": \"Password123\"\n}" },
+						"url": "{{base_url}}/auth/register",
+						"description": "Public. Creates an EMPLOYEE system account and returns a JWT."
+					}
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": { "type": "noauth" },
+						"method": "POST",
+						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"body": { "mode": "raw", "raw": "{\n  \"email\": \"admin@hris.test\",\n  \"password\": \"Password123\"\n}" },
+						"url": "{{base_url}}/auth/login",
+						"description": "Public. Returns { access_token }. Copy it into the {{token}} collection variable."
+					}
+				},
+				{
+					"name": "Profile (protected)",
+					"request": { "method": "GET", "url": "{{base_url}}/auth/profile" }
+				},
+				{
+					"name": "Change Password (protected)",
+					"request": {
+						"method": "PATCH",
+						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"body": { "mode": "raw", "raw": "{\n  \"current_password\": \"Password123\",\n  \"new_password\": \"NewPassword123\"\n}" },
+						"url": "{{base_url}}/auth/password"
+					}
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{ "name": "List Users (admin/hr)", "request": { "method": "GET", "url": "{{base_url}}/users" } },
+				{ "name": "Get User (admin/hr)", "request": { "method": "GET", "url": "{{base_url}}/users/1" } },
+				{
+					"name": "Create User (admin)",
+					"request": {
+						"method": "POST",
+						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"body": { "mode": "raw", "raw": "{\n  \"full_name\": \"HR Officer Two\",\n  \"email\": \"hr2@hris.test\",\n  \"password\": \"Password123\",\n  \"role\": \"hr\"\n}" },
+						"url": "{{base_url}}/users"
+					}
+				},
+				{
+					"name": "Update User (admin)",
+					"request": {
+						"method": "PATCH",
+						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"body": { "mode": "raw", "raw": "{\n  \"role\": \"hr\"\n}" },
+						"url": "{{base_url}}/users/3"
+					}
+				},
+				{ "name": "Delete User (admin)", "request": { "method": "DELETE", "url": "{{base_url}}/users/4" } }
+			]
+		},
+		{
+			"name": "Departments",
+			"item": [
+				{ "name": "List Departments", "request": { "method": "GET", "url": "{{base_url}}/departments" } },
+				{ "name": "Get Department", "request": { "method": "GET", "url": "{{base_url}}/departments/1" } },
+				{
+					"name": "Create Department (admin/hr)",
+					"request": {
+						"method": "POST",
+						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"body": { "mode": "raw", "raw": "{\n  \"name\": \"Operations\",\n  \"description\": \"Logistics and daily operations\"\n}" },
+						"url": "{{base_url}}/departments"
+					}
+				},
+				{
+					"name": "Update Department (admin/hr)",
+					"request": {
+						"method": "PATCH",
+						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"body": { "mode": "raw", "raw": "{\n  \"description\": \"Updated description\"\n}" },
+						"url": "{{base_url}}/departments/1"
+					}
+				},
+				{ "name": "Delete Department (admin)", "request": { "method": "DELETE", "url": "{{base_url}}/departments/5" } }
+			]
+		},
+		{
+			"name": "Employees",
+			"item": [
+				{ "name": "List Employees", "request": { "method": "GET", "url": "{{base_url}}/employees" } },
+				{ "name": "List Employees (filtered)", "request": { "method": "GET", "url": "{{base_url}}/employees?department_id=2&status=active" } },
+				{ "name": "Get Employee", "request": { "method": "GET", "url": "{{base_url}}/employees/1" } },
+				{ "name": "Employee Stats (admin/hr)", "request": { "method": "GET", "url": "{{base_url}}/employees/stats" } },
+				{
+					"name": "Create Employee (admin/hr)",
+					"request": {
+						"method": "POST",
+						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"body": { "mode": "raw", "raw": "{\n  \"full_name\": \"Carlo Mendoza\",\n  \"email\": \"c.mendoza@company.test\",\n  \"position\": \"QA Analyst\",\n  \"salary\": 38000,\n  \"hire_date\": \"2026-10-15\",\n  \"department_id\": 2\n}" },
+						"url": "{{base_url}}/employees"
+					}
+				},
+				{
+					"name": "Update Employee (admin/hr)",
+					"request": {
+						"method": "PATCH",
+						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"body": { "mode": "raw", "raw": "{\n  \"status\": \"active\"\n}" },
+						"url": "{{base_url}}/employees/3"
+					}
+				},
+				{ "name": "Delete Employee (admin)", "request": { "method": "DELETE", "url": "{{base_url}}/employees/4" } }
+			]
+		},
+		{
+			"name": "Leave Requests",
+			"item": [
+				{ "name": "List Leave Requests", "request": { "method": "GET", "url": "{{base_url}}/leave-requests", "description": "Employees see only their own requests." } },
+				{ "name": "List Leave Requests (filtered)", "request": { "method": "GET", "url": "{{base_url}}/leave-requests?status=pending&employee_id=3" } },
+				{ "name": "Pending Review Queue (admin/hr)", "request": { "method": "GET", "url": "{{base_url}}/leave-requests/pending" } },
+				{ "name": "My Leave Requests", "request": { "method": "GET", "url": "{{base_url}}/leave-requests/my" } },
+				{ "name": "Get Leave Request", "request": { "method": "GET", "url": "{{base_url}}/leave-requests/1" } },
+				{
+					"name": "File Leave Request",
+					"request": {
+						"method": "POST",
+						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"body": { "mode": "raw", "raw": "{\n  \"leave_type\": \"vacation\",\n  \"start_date\": \"2026-12-21\",\n  \"end_date\": \"2026-12-23\",\n  \"reason\": \"Family holiday in the province.\"\n}" },
+						"url": "{{base_url}}/leave-requests"
+					}
+				},
+				{
+					"name": "Edit Leave Request (own, pending)",
+					"request": {
+						"method": "PATCH",
+						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"body": { "mode": "raw", "raw": "{\n  \"reason\": \"Updated reason — trip moved a week later.\"\n}" },
+						"url": "{{base_url}}/leave-requests/2"
+					}
+				},
+				{
+					"name": "Approve / Reject (admin/hr)",
+					"request": {
+						"method": "PATCH",
+						"header": [{ "key": "Content-Type", "value": "application/json" }],
+						"body": { "mode": "raw", "raw": "{\n  \"status\": \"approved\"\n}" },
+						"url": "{{base_url}}/leave-requests/1/review"
+					}
+				},
+				{ "name": "Delete Leave Request", "request": { "method": "DELETE", "url": "{{base_url}}/leave-requests/2" } }
+			]
+		}
+	]
+}
