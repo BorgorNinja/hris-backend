@@ -22,11 +22,11 @@ export class AuthService {
   constructor(private readonly usersService: UsersService) {}
 
   private readonly jwtService = new JwtService({
-    secret: process.env.JWT_SECRET || 'sentri-final-project-jwt-secret-2026',
+    secret: process.env.JWT_SECRET || 'hris-final-project-jwt-secret-2026',
     signOptions: { expiresIn: process.env.JWT_EXPIRES_IN || '1d' },
   });
 
-  /** Registers a new resident account and returns an access token. */
+  /** Registers a new employee account and returns an access token. */
   async register(registerDto: LoginDto & { full_name?: string }) {
     const existing = await this.usersService.findByEmailWithPassword(
       registerDto.email,
@@ -40,7 +40,7 @@ export class AuthService {
       full_name: registerDto.full_name ?? registerDto.email.split('@')[0],
       email: registerDto.email,
       password: registerDto.password,
-      role: UserRole.RESIDENT,
+      role: UserRole.EMPLOYEE,
     });
 
     return this.issueToken(user);

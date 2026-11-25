@@ -3,9 +3,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { ZonesModule } from './zones/zones.module';
-import { IncidentsModule } from './incidents/incidents.module';
-import { AnnouncementsModule } from './announcements/announcements.module';
+import { DepartmentsModule } from './departments/departments.module';
+import { EmployeesModule } from './employees/employees.module';
+import { LeaveRequestsModule } from './leave-requests/leave-requests.module';
 
 @Module({
   imports: [
@@ -17,18 +17,18 @@ import { AnnouncementsModule } from './announcements/announcements.module';
         type: 'mysql' as const,
         host: config.get<string>('DB_HOST', 'localhost'),
         port: config.get<number>('DB_PORT', 3306),
-        username: config.get<string>('DB_USERNAME', 'sentri'),
+        username: config.get<string>('DB_USERNAME', 'hris'),
         password: config.get<string>('DB_PASSWORD', ''),
-        database: config.get<string>('DB_NAME', 'sentri_db'),
+        database: config.get<string>('DB_NAME', 'hris_db'),
         autoLoadEntities: true,
         synchronize: true, // dev only — auto-creates tables from entities
       }),
     }),
     AuthModule,
     UsersModule,
-    ZonesModule,
-    IncidentsModule,
-    AnnouncementsModule,
+    DepartmentsModule,
+    EmployeesModule,
+    LeaveRequestsModule,
   ],
 })
 export class AppModule {}

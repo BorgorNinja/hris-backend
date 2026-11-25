@@ -11,7 +11,7 @@ import { JwtStrategy } from './jwt.strategy';
     UsersModule,
     PassportModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'sentri-final-project-jwt-secret-2026',
+      secret: process.env.JWT_SECRET || 'hris-final-project-jwt-secret-2026',
       signOptions: { expiresIn: process.env.JWT_EXPIRES_IN || '1d' },
     }),
   ],

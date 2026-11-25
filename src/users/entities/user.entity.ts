@@ -2,17 +2,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Incident } from '../../incidents/entities/incident.entity';
-import { Announcement } from '../../announcements/entities/announcement.entity';
 
 export enum UserRole {
   ADMIN = 'admin',
-  OFFICIAL = 'official',
-  RESIDENT = 'resident',
+  HR_OFFICER = 'hr',
+  EMPLOYEE = 'employee',
 }
 
 @Entity('users')
@@ -32,18 +29,12 @@ export class User {
   @Column({
     type: 'enum',
     enum: UserRole,
-    default: UserRole.RESIDENT,
+    default: UserRole.EMPLOYEE,
   })
   role: UserRole;
 
   @Column({ type: 'boolean', default: true })
   is_active: boolean;
-
-  @OneToMany(() => Incident, (incident) => incident.reported_by)
-  incidents: Incident[];
-
-  @OneToMany(() => Announcement, (announcement) => announcement.posted_by)
-  announcements: Announcement[];
 
   @CreateDateColumn({ name: 'created_at' })
   created_at: Date;

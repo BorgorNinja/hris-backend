@@ -24,16 +24,16 @@ import { UserRole } from './entities/user.entity';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  /** GET /api/users — ADMIN + OFFICIAL only (protected + role-restricted) */
+  /** GET /api/users — ADMIN + HR only (protected + role-restricted) */
   @Get()
-  @Roles(UserRole.ADMIN, UserRole.OFFICIAL)
+  @Roles(UserRole.ADMIN, UserRole.HR_OFFICER)
   findAll() {
     return this.usersService.findAll();
   }
 
-  /** GET /api/users/:id — ADMIN + OFFICIAL only */
+  /** GET /api/users/:id — ADMIN + HR only */
   @Get(':id')
-  @Roles(UserRole.ADMIN, UserRole.OFFICIAL)
+  @Roles(UserRole.ADMIN, UserRole.HR_OFFICER)
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.findOne(id);
   }

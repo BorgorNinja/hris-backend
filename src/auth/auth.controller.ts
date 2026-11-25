@@ -21,7 +21,7 @@ import { User } from '../users/entities/user.entity';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  /** POST /api/auth/register — public: creates a RESIDENT account and returns a JWT */
+  /** POST /api/auth/register — public: creates a EMPLOYEE account and returns a JWT */
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
   register(@Body() registerDto: LoginDto & { full_name?: string }) {
