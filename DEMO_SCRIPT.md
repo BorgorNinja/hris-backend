@@ -1,6 +1,6 @@
-# SenTri Backend — Live Presentation Guide (10–15 min)
+# HRIS Backend — Live Presentation Guide (10–15 min)
 
-Slide deck: `SenTri_Backend_Presentation.pptx` (15 slides, follows the required flow).
+Slide deck: `HRIS_Backend_Presentation.pptx` (15 slides, follows the required flow).
 Launch everything with one command **before the panel arrives**:
 
 ```bash
@@ -8,13 +8,13 @@ bash ~/Projects/sentri-backend/start-demo.sh
 ```
 
 Backup accounts (password `Password123`): admin@sentri.test · official@sentri.test · resident@sentri.test
-Postman: import `postman/SenTri_Backend_Postman_Collection.json` before starting.
+Postman: import `postman/HRIS_Backend_Postman_Collection.json` before starting.
 
 ---
 
 ## Slide 1–2 · Title + Overview (~2 min)
-- "SenTri is our capstone system — a community-driven safety incident reporting and geospatial monitoring system. This project is its backend: the working REST API that connects residents, officials, and the barangay administration into one system of record."
-- Problem today: manual reporting gets lost. SenTri gives every report a record, a status, and a location.
+- "HRIS is our capstone system — a community-driven safety incident reporting and geospatial monitoring system. This project is its backend: the working REST API that connects residents, officials, and the barangay administration into one system of record."
+- Problem today: manual reporting gets lost. HRIS gives every report a record, a status, and a location.
 
 ## Slide 3 · Users & Features (~1 min)
 - Walk the three roles: admin manages, officials verify, residents file.
