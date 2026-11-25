@@ -1,11 +1,11 @@
-# SenTri Backend — Community-Driven Safety Incident Reporting (Backend Prototype)
+# HRIS Backend — Community-Driven Safety Incident Reporting (Backend Prototype)
 
 ITEC 116 — Systems Integration and Architecture 2 (Final Project)
 
-SenTri is a web-based public-safety system for community incident reporting and
+HRIS is a web-based public-safety system for community incident reporting and
 geospatial monitoring. This repository contains the **backend prototype**: a
-RESTful API that authenticates users with JWT, stores incident reports,
-organizes them by barangay zone, and publishes community announcements.
+RESTful API that authenticates users with JWT, stores employee records,
+organizes them by company department, and publishes community announcements.
 
 ## Tech Stack
 
@@ -61,5 +61,5 @@ All routes except `register` and `login` are protected and require
 ## Roles
 
 - **admin** — full access, manages users and zones
-- **official** — verifies/resolves incident reports, posts announcements
-- **resident** — files and manages their own incident reports
+- **official** — verifies/resolves employee records, posts announcements
+- **resident** — files and manages their own employee records
