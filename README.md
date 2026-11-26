@@ -1,11 +1,12 @@
-# HRIS Backend — Community-Driven Safety Incident Reporting (Backend Prototype)
+# HRISync Backend — A Web-based Human Resource Information System (Backend Prototype)
 
 ITEC 116 — Systems Integration and Architecture 2 (Final Project)
 
-HRIS is a web-based public-safety system for community incident reporting and
-geospatial monitoring. This repository contains the **backend prototype**: a
-RESTful API that authenticates users with JWT, stores employee records,
-organizes them by company department, and publishes community announcements.
+HRISync is a web-based Human Resource Information System featuring **employee
+records**, **department organization**, and **leave request management**. This
+repository contains the **backend prototype**: a RESTful API that authenticates
+users with JWT, maintains employee records, organizes them by department, and
+manages the employee leave request workflow.
 
 ## Tech Stack
 
@@ -21,45 +22,56 @@ organizes them by company department, and publishes community announcements.
 ## How to Run Locally
 
 1. **Install dependencies**
-
    ```bash
    npm install
    ```
-
-2. **Configure the database** — create `sentri_db` in MySQL/MariaDB, create a
+2. **Configure the database** — create `hris_db` in MySQL/MariaDB, create a
    user, then copy `.env.example` to `.env` and fill in your credentials.
-
 3. **Start the backend**
-
    ```bash
    npm run start:dev
    ```
-
    Tables are auto-created by TypeORM (`synchronize: true`). The API runs at
    `http://localhost:3000/api`.
-
 4. **Seed sample data** (optional)
-
    ```bash
    node scripts/seed.js
    ```
 
-## API Overview (26 endpoints)
+## API Overview (28 endpoints)
 
 | Module        | Endpoints |
 | ------------- | --------- |
 | Auth          | `POST /api/auth/register`, `POST /api/auth/login`, `GET /api/auth/profile`, `PATCH /api/auth/password` |
 | Users         | `GET/POST /api/users`, `GET/PATCH/DELETE /api/users/:id` |
-| Zones         | `GET/POST /api/zones`, `GET/PATCH/DELETE /api/zones/:id` |
-| Incidents     | `GET/POST /api/incidents`, `GET/PATCH/DELETE /api/incidents/:id`, `GET /api/incidents/my`, `GET /api/incidents/stats`, `GET /api/incidents?status=&severity=&zone_id=` |
-| Announcements | `GET/POST /api/announcements`, `GET/PATCH/DELETE /api/announcements/:id` |
+| Departments   | `GET/POST /api/departments`, `GET/PATCH/DELETE /api/departments/:id` |
+| Employees     | `GET/POST /api/employees`, `GET/PATCH/DELETE /api/employees/:id`, `GET /api/employees/stats` |
+| Leave Requests | `GET/POST /api/leave-requests`, `GET/PATCH/DELETE /api/leave-requests/:id`, `GET /api/leave-requests/pending`, `GET /api/leave-requests/my`, `PATCH /api/leave-requests/:id/review` |
 
-All routes except `register` and `login` are protected and require
-`Authorization: Bearer <token>`. Role-based access control distinguishes
-`admin`, `official`, and `resident` accounts.
+## User Roles
 
-## Roles
+| Role     | Capabilities |
+| -------- | ------------ |
+| `admin`  | Full access — manages users, departments, employees, and leave requests |
+| `hr`     | Manages employee records, departments, and reviews leave requests |
+| `employee` | Views own records and files/withdraws leave requests |
 
-- **admin** — full access, manages users and zones
-- **official** — verifies/resolves employee records, posts announcements
-- **resident** — files and manages their own employee records
+## Database Design
+
+Four tables:
+
+- `users` — system accounts (admin / hr / employee roles)
+- `departments` — company departments (one department → many employees)
+- `employees` — employee records, each linked to a department
+- `leave_requests` — leave filings, each linked to an employee
+  (status workflow: `pending` → `approved` / `rejected`)
+
+## Demo Launcher
+
+```bash
+bash start-demo.sh
+```
+
+Starts MariaDB, creates/seeds the database if missing, launches the backend,
+and smoke-tests login. Demo accounts (password `Password123`):
+`admin@hris.test`, `hr@hris.test`, `employee@hris.test`.
