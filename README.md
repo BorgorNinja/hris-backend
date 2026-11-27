@@ -1,6 +1,6 @@
-# HRISync Backend — A Web-based Human Resource Information System (Backend Prototype)
+# HRISync Backend - A Web-based Human Resource Information System (Backend Prototype)
 
-ITEC 116 — Systems Integration and Architecture 2 (Final Project)
+ITEC 116 Systems Integration and Architecture 2 (Final Project)
 
 HRISync is a web-based Human Resource Information System featuring **employee
 records**, **department organization**, and **leave request management**. This
@@ -73,5 +73,5 @@ bash start-demo.sh
 ```
 
 Starts MariaDB, creates/seeds the database if missing, launches the backend,
-and smoke-tests login. Demo accounts (password `Password123`):
+and test login. Demo accounts (password `Password123`):
 `admin@hris.test`, `hr@hris.test`, `employee@hris.test`.
