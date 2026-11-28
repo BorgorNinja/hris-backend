@@ -25,15 +25,18 @@ manages the employee leave request workflow.
    ```bash
    npm install
    ```
-2. **Configure the database** — create `hris_db` in MySQL/MariaDB, create a
-   user, then copy `.env.example` to `.env` and fill in your credentials.
+2. **Configure the database** — manually create the `hris_db` database in MySQL/MariaDB, create a
+   user, then rename `.env.example` to `.env` and fill in your credentials.
 3. **Start the backend**
+   
    ```bash
    npm run start:dev
    ```
+
+
    Tables are auto-created by TypeORM (`synchronize: true`). The API runs at
    `http://localhost:3000/api`.
-4. **Seed sample data** (optional)
+5. **Seed sample data** (optional)
    ```bash
    node scripts/seed.js
    ```
